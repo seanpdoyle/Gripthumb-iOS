@@ -1,17 +1,14 @@
 //
-//  echoprintViewController.m
-//  echoprint
+//  ViewController.m
 //
 //  Created by Brian Whitman on 6/13/11.
 //  Copyright 2011 The Echo Nest. All rights reserved.
 //
 
-#import "echoprintViewController.h"
+#import "ViewController.h"
 extern const char * GetPCMFromFile(char * filename);
 
-
-
-@implementation echoprintViewController
+@implementation ViewController
 
 - (IBAction)pickSong:(id)sender {
 	NSLog(@"Pick song");

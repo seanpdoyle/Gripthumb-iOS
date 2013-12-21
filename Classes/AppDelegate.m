@@ -1,15 +1,14 @@
 //
-//  echoprintAppDelegate.m
-//  echoprint
+//  AppDelegate.m
 //
 //  Created by Brian Whitman on 6/13/11.
 //  Copyright 2011 The Echo Nest. All rights reserved.
 //
 
-#import "echoprintAppDelegate.h"
-#import "echoprintViewController.h"
+#import "AppDelegate.h"
+#import "ViewController.h"
 
-@implementation echoprintAppDelegate
+@implementation AppDelegate
 
 @synthesize window;
 @synthesize viewController;

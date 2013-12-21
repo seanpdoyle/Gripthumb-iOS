@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Setup the Project
+
+set -e
+
+echo "Installing dependencies..."
+
+[ $(which pod) ] || gem install cocoapods
+
+pod install
+
+echo "Ready!"
