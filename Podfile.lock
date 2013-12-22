@@ -10,18 +10,21 @@ PODS:
     - Reachability
   - ASIHTTPRequest/S3 (1.8.1):
     - Reachability
+  - ObjectiveSugar (1.0.0)
   - Reachability (3.1.1)
   - SBJson (3.2)
   - TSLibraryImport (0.0.1)
 
 DEPENDENCIES:
   - ASIHTTPRequest (~> 1.8.1)
+  - ObjectiveSugar
   - Reachability (~> 3.0.0)
   - SBJson (~> 3.2)
   - TSLibraryImport
 
 SPEC CHECKSUMS:
   ASIHTTPRequest: 162783e0cd71bdd3ff1ceed0cd5fa9505e0116a8
+  ObjectiveSugar: e094b5e368743fb63d74150f80f281aadff8ed2d
   Reachability: be4883bb93f31e38266ae3365e5600a317aae735
   SBJson: abc2bf2baef456d5dae213f9826fe2b6fdf19861
   TSLibraryImport: d491ea11bcd7e7fd04d13255fe6e8f5b9b0eb7d9

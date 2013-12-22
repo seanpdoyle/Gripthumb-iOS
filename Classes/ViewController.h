@@ -11,18 +11,17 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <ASIHTTPRequest/ASIFormDataRequest.h>
 #import <TSLibraryImport/TSLibraryImport.h>
+#import <ObjectiveSugar/ObjectiveSugar.h>
 #import "MicrophoneInput.h"
 
-// developer.echonest.com
-#define API_KEY @"QQZAT4LNJLUGLMAZ5"
-#define API_HOST @"developer.echonest.com"
+#define API_HOST @"gripthumb.com"
 
 @interface ViewController : UIViewController <MPMediaPickerControllerDelegate> {
 	BOOL recording;
 	IBOutlet UIButton* recordButton;
 	IBOutlet UILabel* statusLine;
+	IBOutlet UILabel* partsLine;
 	MicrophoneInput* recorder;
-
 }
 
 - (IBAction)pickSong:(id)sender;

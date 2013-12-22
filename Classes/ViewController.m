@@ -74,8 +74,10 @@ extern const char * GetPCMFromFile(char * filename);
 
 - (void) getSong: (const char*) fpCode {
 	NSLog(@"Done %s", fpCode);
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/api/v4/song/identify?api_key=%@&version=4.11&code=%s", API_HOST, API_KEY, fpCode]];
-	ASIHTTPRequest * request = [ASIHTTPRequest requestWithURL:url];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/songs/identify", API_HOST]];
+    NSString *song_code = [NSString stringWithUTF8String: fpCode];
+	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setPostValue:song_code forKey:@"code"];
 	[request setAllowCompressedResponse:NO];
 	[request startSynchronous];
 	NSError *error = [request error];
@@ -83,14 +85,29 @@ extern const char * GetPCMFromFile(char * filename);
 		NSString *response = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];		
 		NSDictionary *dictionary = [response JSONValue];
 		NSLog(@"%@", dictionary);
-		NSArray *songList = [[dictionary objectForKey:@"response"] objectForKey:@"songs"];
-		if([songList count]>0) {
-			NSString * song_title = [[songList objectAtIndex:0] objectForKey:@"title"];
-			NSString * artist_name = [[songList objectAtIndex:0] objectForKey:@"artist_name"];
-			[statusLine setText:[NSString stringWithFormat:@"%@ - %@", artist_name, song_title]];
-		} else {
-			[statusLine setText:@"no match"];
-		}
+        NSString *error = [dictionary objectForKey:@"error"];
+		NSDictionary *song = [dictionary objectForKey:@"song"];
+        if(error == NULL) {
+            NSArray *parts = [song objectForKey:@"parts"];
+            
+            NSMutableString *part_names = [[NSMutableString alloc] init];
+            
+            [parts each:^(id part){
+                NSDictionary *video = [part objectForKey:@"video"];
+                
+                NSString *partName = [part objectForKey:@"name"];
+                NSString *videoName = [video objectForKey:@"name"];
+                
+                [part_names appendString: [NSString stringWithFormat:@"%@ - %@", partName, videoName]];
+            }];
+            
+            NSString *song_title = [song objectForKey:@"name"];
+			NSString *artist_name = [song objectForKey:@"artist_name"];
+            
+			[statusLine setText:[NSString stringWithFormat:@"%@ - %@ - %@", artist_name, song_title, part_names]];
+        } else {
+            [statusLine setText:@"no match"];
+        }
 	} else {
 		[statusLine setText:@"some error"];
 		NSLog(@"error: %@", error);
