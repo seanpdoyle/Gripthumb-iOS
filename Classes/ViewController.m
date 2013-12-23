@@ -71,7 +71,6 @@ extern const char * GetPCMFromFile(char * filename);
 	}
 }
 
-
 - (void) getSong: (const char*) fpCode {
 	NSLog(@"Done %s", fpCode);
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/songs/identify", API_HOST]];
@@ -80,6 +79,10 @@ extern const char * GetPCMFromFile(char * filename);
     [request setPostValue:song_code forKey:@"code"];
 	[request setAllowCompressedResponse:NO];
 	[request startSynchronous];
+    [partsArray removeAllObjects];
+    
+    [partsTable reloadData];
+    
 	NSError *error = [request error];
 	if (!error) {
 		NSString *response = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];		
@@ -87,10 +90,9 @@ extern const char * GetPCMFromFile(char * filename);
 		NSLog(@"%@", dictionary);
         NSString *error = [dictionary objectForKey:@"error"];
 		NSDictionary *song = [dictionary objectForKey:@"song"];
+        
         if(error == NULL) {
             NSArray *parts = [song objectForKey:@"parts"];
-            
-            NSMutableString *part_names = [[NSMutableString alloc] init];
             
             [parts each:^(id part){
                 NSDictionary *video = [part objectForKey:@"video"];
@@ -98,13 +100,14 @@ extern const char * GetPCMFromFile(char * filename);
                 NSString *partName = [part objectForKey:@"name"];
                 NSString *videoName = [video objectForKey:@"name"];
                 
-                [part_names appendString: [NSString stringWithFormat:@"%@ - %@", partName, videoName]];
+                NSString *byline  = [NSString stringWithFormat:@"%@ - %@", partName, videoName];
+                
+                [partsArray addObject: byline];
             }];
-            
             NSString *song_title = [song objectForKey:@"name"];
 			NSString *artist_name = [song objectForKey:@"artist_name"];
             
-			[statusLine setText:[NSString stringWithFormat:@"%@ - %@ - %@", artist_name, song_title, part_names]];
+			[statusLine setText:[NSString stringWithFormat:@"%@ - %@", artist_name, song_title]];
         } else {
             [statusLine setText:@"no match"];
         }
@@ -116,22 +119,37 @@ extern const char * GetPCMFromFile(char * filename);
 	[self.view setNeedsDisplay];
 }
 
-
-
 - (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [partsArray count];
 }
-*/
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [partsTable dequeueReusableCellWithIdentifier: CellIdentifier];
+
+    if(cell == nil)
+    {
+        cell = [[[UITableViewCell alloc] initWithFrame: CGRectZero
+                                      reuseIdentifier: CellIdentifier] autorelease];
+    }
+    cell.textLabel.text = [partsArray objectAtIndex: indexPath.row];
+    return cell;
+}
+
+//// The designated initializer. Override to perform setup that is required before the view is loaded.
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        // Custom Initialization
+//    }
+//    return self;
+//}
 
 /*
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -143,8 +161,14 @@ extern const char * GetPCMFromFile(char * filename);
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    partsArray = [[NSMutableArray alloc] init];
 	recorder = [[MicrophoneInput alloc] init];
 	recording = NO;
+}
+             
+- (void)viewDidUnload {
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
 
@@ -156,20 +180,16 @@ extern const char * GetPCMFromFile(char * filename);
 }
 */
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
+                
+    // Release any cached data, images, etc that aren't in use.
 }
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
 
 - (void)dealloc {
+    [partsArray release];
     [super dealloc];
 }
 

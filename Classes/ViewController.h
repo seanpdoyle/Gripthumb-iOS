@@ -16,11 +16,12 @@
 
 #define API_HOST @"gripthumb.com"
 
-@interface ViewController : UIViewController <MPMediaPickerControllerDelegate> {
+@interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,MPMediaPickerControllerDelegate> {
 	BOOL recording;
 	IBOutlet UIButton* recordButton;
 	IBOutlet UILabel* statusLine;
-	IBOutlet UILabel* partsLine;
+	IBOutlet UITableView* partsTable;
+    NSMutableArray* partsArray;
 	MicrophoneInput* recorder;
 }
 
