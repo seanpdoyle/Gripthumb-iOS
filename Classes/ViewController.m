@@ -100,10 +100,9 @@ extern const char * GetPCMFromFile(char * filename);
                 NSString *partName = [part objectForKey:@"name"];
                 NSString *videoName = [video objectForKey:@"name"];
                 
-                NSString *byline  = [NSString stringWithFormat:@"%@ - %@", partName, videoName];
-                
-                [partsArray addObject: byline];
+                [partsArray addObject: [NSString stringWithFormat:@"%@ - %@", partName, videoName]];
             }];
+            
             NSString *song_title = [song objectForKey:@"name"];
 			NSString *artist_name = [song objectForKey:@"artist_name"];
             
@@ -115,6 +114,7 @@ extern const char * GetPCMFromFile(char * filename);
 		[statusLine setText:@"some error"];
 		NSLog(@"error: %@", error);
 	}
+    [partsTable reloadData];
 	[statusLine setNeedsDisplay];
 	[self.view setNeedsDisplay];
 }
