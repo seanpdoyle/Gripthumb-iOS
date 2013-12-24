@@ -14,16 +14,21 @@
 #import <ObjectiveSugar/ObjectiveSugar.h>
 #import "MicrophoneInput.h"
 
-//#define API_HOST @"gripthumb.com"
-#define API_HOST @"localhost:5000"
+#define API_HOST @"gripthumb.com"
+#define RECORD_FOR 15
 
 @interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,MPMediaPickerControllerDelegate> {
 	BOOL recording;
 	IBOutlet UIButton* recordButton;
 	IBOutlet UILabel* statusLine;
 	IBOutlet UITableView* partsTable;
+    IBOutlet UIProgressView *progressView;
+    
     NSMutableArray* partsArray;
 	MicrophoneInput* recorder;
+    
+    NSTimer *progressTimer;
+    NSInteger progress;
 }
 
 - (IBAction)pickSong:(id)sender;
