@@ -31,6 +31,7 @@ extern const char * GetPCMFromFile(char * filename);
 		const char * fpCode = GetPCMFromFile((char*) [filePath cStringUsingEncoding:NSASCIIStringEncoding]);
         [self getSong:fpCode];
 	} else {
+        [partsArray removeAllObjects];
 		[statusLine setText:@"recording..."];
 		recording = YES;
 		[recordButton setTitle:@"Stop" forState:UIControlStateNormal];
@@ -79,7 +80,6 @@ extern const char * GetPCMFromFile(char * filename);
     [request setPostValue:song_code forKey:@"code"];
 	[request setAllowCompressedResponse:NO];
 	[request startSynchronous];
-    [partsArray removeAllObjects];
     
     [partsTable reloadData];
     
@@ -108,7 +108,13 @@ extern const char * GetPCMFromFile(char * filename);
             
 			[statusLine setText:[NSString stringWithFormat:@"%@ - %@", artist_name, song_title]];
         } else {
-            [statusLine setText:@"no match"];
+            if(song != NULL) {
+                NSString *song_title = [song objectForKey:@"name"];
+                NSString *artist_name = [song objectForKey:@"artist_name"];
+                [statusLine setText:[NSString stringWithFormat: @"No parts found for %@ - %@",  artist_name, song_title]];
+            } else {
+                [statusLine setText:@"No matching song"];
+            }
         }
 	} else {
 		[statusLine setText:@"some error"];

@@ -14,7 +14,8 @@
 #import <ObjectiveSugar/ObjectiveSugar.h>
 #import "MicrophoneInput.h"
 
-#define API_HOST @"gripthumb.com"
+//#define API_HOST @"gripthumb.com"
+#define API_HOST @"localhost:5000"
 
 @interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,MPMediaPickerControllerDelegate> {
 	BOOL recording;
