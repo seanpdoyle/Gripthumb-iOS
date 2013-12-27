@@ -10,8 +10,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <ASIHTTPRequest/ASIFormDataRequest.h>
+#import <AsyncImageView/AsyncImageView.h>
 #import <TSLibraryImport/TSLibraryImport.h>
 #import <ObjectiveSugar/ObjectiveSugar.h>
+#import <Inflections/NSString+Inflections.h>
 #import "MicrophoneInput.h"
 
 #define API_HOST @"gripthumb.com"

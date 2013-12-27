@@ -129,12 +129,7 @@ extern const char * GetPCMFromFile(char * filename);
             NSArray *parts = [song objectForKey:@"parts"];
             
             [parts each:^(id part){
-                NSDictionary *video = [part objectForKey:@"video"];
-                
-                NSString *partName = [part objectForKey:@"name"];
-                NSString *videoName = [video objectForKey:@"name"];
-                
-                [partsArray addObject: [NSString stringWithFormat:@"%@ - %@", partName, videoName]];
+                [partsArray addObject: part];
             }];
             
             NSString *song_title = [song objectForKey:@"name"];
@@ -168,17 +163,29 @@ extern const char * GetPCMFromFile(char * filename);
     return [partsArray count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [partsTable dequeueReusableCellWithIdentifier: CellIdentifier];
-
-    if(cell == nil)
-    {
-        cell = [[[UITableViewCell alloc] initWithFrame: CGRectZero
-                                      reuseIdentifier: CellIdentifier] autorelease];
+    static NSString* CellIdentifier = @"Cell";
+    
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
-    cell.textLabel.text = [partsArray objectAtIndex: indexPath.row];
+    
+    NSDictionary *part = [partsArray objectAtIndex: indexPath.row];
+    NSDictionary *video = [part objectForKey:@"video"];
+    
+    cell.textLabel.text =  [part objectForKey:@"name"];
+    cell.detailTextLabel.text = [video objectForKey:@"name"];
+   
+    NSString *logo = [video objectForKey:@"logo"];
+    
+    NSURL *thumbUrl = [NSURL URLWithString:logo];
+    NSData *thumbData = [NSData dataWithContentsOfURL:thumbUrl];
+    
+    cell.imageView.image = [UIImage imageWithData:thumbData];
+    
     return cell;
 }
 
