@@ -12,4 +12,6 @@
 
 - (NSArray*) gripthumb:(NSString*)song;
 
+@property NSURL* apiEndpoint;
+
 @end

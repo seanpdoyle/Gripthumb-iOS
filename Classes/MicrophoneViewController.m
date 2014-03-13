@@ -15,6 +15,7 @@
 @implementation MicrophoneViewController
 
 #define MAX_RECORDED_SECONDS 20
+#define FINGERPRINTING_INTERVAL 2
 
 - (void)viewDidLoad
 {
@@ -55,7 +56,7 @@
     if(recording){
         [self performSelector:@selector(fingerprintSong)
                    withObject:self
-                   afterDelay:1];
+                   afterDelay:FINGERPRINTING_INTERVAL];
     }
 }
 
