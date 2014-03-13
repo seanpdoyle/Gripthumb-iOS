@@ -13,6 +13,6 @@
 
 - (SongModel*) gripthumb:(NSString*)fingerprintCode;
 
-@property NSURL* apiEndpoint;
+@property (strong, nonatomic) NSURL* apiEndpoint;
 
 @end

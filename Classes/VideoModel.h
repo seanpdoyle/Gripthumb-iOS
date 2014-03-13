@@ -14,4 +14,6 @@
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* logo;
 
+- (NSURL*) logoURL;
+
 @end

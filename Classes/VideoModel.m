@@ -9,4 +9,8 @@
 #import "VideoModel.h"
 
 @implementation VideoModel
+
+- (NSURL*) logoURL {
+    return [NSURL URLWithString:[self logo]];
+}
 @end

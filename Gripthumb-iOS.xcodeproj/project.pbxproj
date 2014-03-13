@@ -22,6 +22,7 @@
 		2A5EC81718D205D900989F28 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EC81518D205D900989F28 /* VideoModel.m */; };
 		2A5EC81918D206C500989F28 /* libechoprint-codegen-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A5EC81818D206C500989F28 /* libechoprint-codegen-ios.a */; };
 		2A7F538C18CD314E00845DFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F538B18CD314E00845DFD /* main.m */; };
+		2ABAEDD418D2519A006C8E96 /* SongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAEDD318D2519A006C8E96 /* SongViewController.m */; };
 		7E337B5DBC0B4D629ECF7D60 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5A15E85C047D88B4833BB /* libPods.a */; };
 		9AC8897513A69840002C92D4 /* Fingerprinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8897413A69840002C92D4 /* Fingerprinter.m */; };
 		9AC8898A13A69876002C92D4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC8898913A69876002C92D4 /* AVFoundation.framework */; };
@@ -62,6 +63,8 @@
 		2A5EC81518D205D900989F28 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
 		2A5EC81818D206C500989F28 /* libechoprint-codegen-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libechoprint-codegen-ios.a"; sourceTree = "<group>"; };
 		2A7F538B18CD314E00845DFD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
+		2ABAEDD218D2519A006C8E96 /* SongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongViewController.h; sourceTree = "<group>"; };
+		2ABAEDD318D2519A006C8E96 /* SongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongViewController.m; sourceTree = "<group>"; };
 		73C5A15E85C047D88B4833BB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC8897313A69840002C92D4 /* Fingerprinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fingerprinter.h; sourceTree = "<group>"; };
 		9AC8897413A69840002C92D4 /* Fingerprinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fingerprinter.m; sourceTree = "<group>"; };
@@ -112,6 +115,8 @@
 				2A5EC81418D205D900989F28 /* SongModel.m */,
 				2A5EC80D18D202B300989F28 /* VideoModel.h */,
 				2A5EC81518D205D900989F28 /* VideoModel.m */,
+				2ABAEDD218D2519A006C8E96 /* SongViewController.h */,
+				2ABAEDD318D2519A006C8E96 /* SongViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 				2A5EC81618D205D900989F28 /* SongModel.m in Sources */,
 				2A07253818D12F02003FCCEA /* MicrophoneViewController.m in Sources */,
 				2A5EC81718D205D900989F28 /* VideoModel.m in Sources */,
+				2ABAEDD418D2519A006C8E96 /* SongViewController.m in Sources */,
 				9AC8897513A69840002C92D4 /* Fingerprinter.m in Sources */,
 				2A07252218D12A20003FCCEA /* GetPCMFromFile.cpp in Sources */,
 			);

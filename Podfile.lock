@@ -1,22 +1,18 @@
 PODS:
-  - AsyncImageView (1.4)
-  - Inflections (1.0.0):
-    - RegexKitLite
   - JSONModel (0.12.0)
   - ObjectiveSugar (1.0.0)
-  - RegexKitLite (4.0)
+  - SDWebImage (3.5.4):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.5.4)
 
 DEPENDENCIES:
-  - AsyncImageView (~> 1.4)
-  - Inflections (~> 1.0)
   - JSONModel
   - ObjectiveSugar
+  - SDWebImage
 
 SPEC CHECKSUMS:
-  AsyncImageView: 34ac0e1c1d251087c6643b175a25c5d7a18512fa
-  Inflections: e77c455409381402163911a75835892fd406ff99
   JSONModel: f391da60a15e11f8fa8950fb980b8f799ae3453f
   ObjectiveSugar: 0df43a307b823c95389d142be0738a3ab166947c
-  RegexKitLite: f7af7b4d2b675cd2ec9a4abab6aad6ae1f6499c0
+  SDWebImage: 1a62010700adbba823b621fc217906739dbf6aa5
 
 COCOAPODS: 0.29.0
