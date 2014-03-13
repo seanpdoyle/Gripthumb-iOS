@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Fingerprinter.h"
+#import "Gripthumber.h"
 
 @interface MicrophoneViewController : UIViewController {
     IBOutlet UIActivityIndicatorView* spinnerView;
     IBOutlet UIButton* recordButton;
 
     Fingerprinter* fingerprinter;
+    Gripthumber* gripthumber;
     
     BOOL recording;
     int secondsPassed;
@@ -25,6 +27,7 @@
 - (void) scheduleFingerprint;
 - (void) startRecording;
 - (void) stopRecording;
+- (void) showResults:(NSArray*) results;
 
 @end
 

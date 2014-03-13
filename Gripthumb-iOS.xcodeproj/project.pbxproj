@@ -18,6 +18,7 @@
 		2A07253818D12F02003FCCEA /* MicrophoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A07253718D12F02003FCCEA /* MicrophoneViewController.m */; };
 		2A07253A18D1301C003FCCEA /* libechoprint-codegen-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A07253918D1301C003FCCEA /* libechoprint-codegen-ios.a */; };
 		2A07253C18D131D5003FCCEA /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A07253B18D131D5003FCCEA /* Storyboard.storyboard */; };
+		2A5EC80618D173FF00989F28 /* Gripthumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EC80518D173FF00989F28 /* Gripthumber.m */; };
 		2A7F538C18CD314E00845DFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F538B18CD314E00845DFD /* main.m */; };
 		7E337B5DBC0B4D629ECF7D60 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5A15E85C047D88B4833BB /* libPods.a */; };
 		9AC8897513A69840002C92D4 /* Fingerprinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8897413A69840002C92D4 /* Fingerprinter.m */; };
@@ -52,6 +53,8 @@
 		2A07253718D12F02003FCCEA /* MicrophoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MicrophoneViewController.m; sourceTree = "<group>"; };
 		2A07253918D1301C003FCCEA /* libechoprint-codegen-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libechoprint-codegen-ios.a"; sourceTree = "<group>"; };
 		2A07253B18D131D5003FCCEA /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		2A5EC80418D173FF00989F28 /* Gripthumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gripthumber.h; sourceTree = "<group>"; };
+		2A5EC80518D173FF00989F28 /* Gripthumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gripthumber.m; sourceTree = "<group>"; };
 		2A7F538B18CD314E00845DFD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
 		73C5A15E85C047D88B4833BB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC8897313A69840002C92D4 /* Fingerprinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fingerprinter.h; sourceTree = "<group>"; };
@@ -95,6 +98,8 @@
 				28D7ACF60DDB3853001CB0EB /* ViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* ViewController.m */,
 				2A7F538B18CD314E00845DFD /* main.m */,
+				2A5EC80418D173FF00989F28 /* Gripthumber.h */,
+				2A5EC80518D173FF00989F28 /* Gripthumber.m */,
 				2A07253618D12F02003FCCEA /* MicrophoneViewController.h */,
 				2A07253718D12F02003FCCEA /* MicrophoneViewController.m */,
 			);
@@ -265,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A07252118D12A20003FCCEA /* Codegen_wrapper.cpp in Sources */,
+				2A5EC80618D173FF00989F28 /* Gripthumber.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* ViewController.m in Sources */,
 				2A7F538C18CD314E00845DFD /* main.m in Sources */,

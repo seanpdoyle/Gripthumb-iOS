@@ -22,6 +22,7 @@
     recording = NO;
     spinnerView.hidesWhenStopped = YES;
     fingerprinter = [[Fingerprinter alloc] init];
+    gripthumber = [[Gripthumber alloc] init];
 }
 
 - (IBAction)buttonWasPressed:(id)sender {
@@ -46,6 +47,9 @@
     [spinnerView stopAnimating];
 }
 
+- (void) showResults:(NSArray*) results {
+    
+}
 
 - (void)scheduleFingerprint {
     if(recording){
@@ -61,9 +65,17 @@
                                withObject:nil
                             waitUntilDone:YES];
     } else {
-        NSString* fpCode = [fingerprinter fingerprint];
-        NSLog(@"Fingerprinted: %@", fpCode);
-        [self scheduleFingerprint];
+        NSString* fingerprint = [fingerprinter fingerprint];
+        NSLog(@"Fingerprinted: %@", fingerprint);
+        NSArray* results = [gripthumber gripthumb:fingerprint];
+        
+        if([results count] > 0) {
+            [self performSelectorOnMainThread:@selector(showResults)
+                                   withObject:results
+                                waitUntilDone:YES];
+        } else {
+            [self scheduleFingerprint];
+        }
     }
 }
 
