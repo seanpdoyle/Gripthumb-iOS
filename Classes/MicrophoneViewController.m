@@ -14,24 +14,57 @@
 
 @implementation MicrophoneViewController
 
+#define MAX_RECORDED_SECONDS 20
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     recording = NO;
-    fingerprinter = [[Fingerprinter alloc] init];
     spinnerView.hidesWhenStopped = YES;
+    fingerprinter = [[Fingerprinter alloc] init];
 }
 
 - (IBAction)buttonWasPressed:(id)sender {
     if(recording) {
-        [spinnerView stopAnimating];
-        [fingerprinter stop];
+        [self stopRecording];
     } else {
-        [spinnerView startAnimating];
-        [fingerprinter record];
+        [self startRecording];
     }
-    recording = !recording;
-    
     recordButton.selected = recording;
 }
+
+- (void) startRecording {
+    recording = YES;
+    [spinnerView startAnimating];
+    [fingerprinter record];
+    [self scheduleFingerprint];
+}
+
+- (void) stopRecording {
+    recording = NO;
+    [fingerprinter stop];
+    [spinnerView stopAnimating];
+}
+
+
+- (void)scheduleFingerprint {
+    if(recording){
+        [self performSelector:@selector(fingerprintSong)
+                   withObject:self
+                   afterDelay:1];
+    }
+}
+
+- (void)fingerprintSong {
+    if(secondsPassed > MAX_RECORDED_SECONDS) {
+        [self performSelectorOnMainThread:@selector(stopRecording)
+                               withObject:nil
+                            waitUntilDone:YES];
+    } else {
+        NSString* fpCode = [fingerprinter fingerprint];
+        NSLog(@"Fingerprinted: %@", fpCode);
+        [self scheduleFingerprint];
+    }
+}
+
 @end

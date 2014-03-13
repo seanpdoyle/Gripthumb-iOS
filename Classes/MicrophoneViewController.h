@@ -9,13 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "Fingerprinter.h"
 
-@interface MicrophoneViewController : UIViewController {    
+@interface MicrophoneViewController : UIViewController {
     IBOutlet UIActivityIndicatorView* spinnerView;
     IBOutlet UIButton* recordButton;
+
     Fingerprinter* fingerprinter;
+    
     BOOL recording;
+    int secondsPassed;
 }
 
-- (IBAction)buttonWasPressed:(id)sender;
+- (IBAction) buttonWasPressed:(id)sender;
+
+- (void) fingerprintSong;
+- (void) scheduleFingerprint;
+- (void) startRecording;
+- (void) stopRecording;
 
 @end
+

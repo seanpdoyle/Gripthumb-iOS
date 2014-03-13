@@ -32,10 +32,9 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonWasPressed:" destination="J5S-7M-byw" eventType="touchUpInside" id="Vto-Iw-CsZ"/>
-                                    <action selector="startRecording" destination="wU2-OL-zrO" eventType="touchUpInside" id="lzb-QI-h5B"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jla-Fa-EBL">
+                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jla-Fa-EBL">
                                 <rect key="frame" x="150" y="307" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>

@@ -30,13 +30,17 @@ extern const char * GetPCMFromFile(char * filename);
 	
 	// Init audio with record capability
 	AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-	[audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
+	[audioSession setCategory:AVAudioSessionCategoryRecord
+                        error:nil];
 	
-	[[NSFileManager defaultManager] removeItemAtURL:outputURL error:nil];
+	[[NSFileManager defaultManager] removeItemAtURL:outputURL
+                                              error:nil];
 	NSLog(@"url loc is %@", outputURL);
 	
 	NSError *error = nil;
-	audioRecorder = [[ AVAudioRecorder alloc] initWithURL:outputURL settings:[self recordSettings] error:&error];
+	audioRecorder = [[ AVAudioRecorder alloc] initWithURL:outputURL
+                                                 settings:[self recordSettings]
+                                                    error:&error];
 	
 	if ([audioRecorder record] == NO){
 		int errorCode = CFSwapInt32HostToBig ([error code]);
