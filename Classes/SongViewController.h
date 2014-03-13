@@ -13,11 +13,9 @@
     IBOutlet UILabel* name;
     IBOutlet UILabel* artistName;
     IBOutlet UITableView* table;
+
+    SongModel* song;
 }
-
-
-@property (atomic, strong) SongModel* song;
-@property (atomic, strong) NSArray<PartModel>* parts;
 
 - (void) loadSong:(SongModel*) songToLoad;
 - (IBAction)close:(id)sender;

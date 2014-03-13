@@ -9,9 +9,7 @@
 #import "JSONModel.h"
 #import "VideoModel.h"
 
-@protocol PartModel <NSObject>
-
-@end
+@protocol PartModel @end
 
 @interface PartModel : JSONModel
 

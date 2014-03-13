@@ -7,7 +7,7 @@
         <!--Microphone View Controller-->
         <scene sceneID="Si7-ES-81A">
             <objects>
-                <viewController storyboardIdentifier="root" id="J5S-7M-byw" customClass="MicrophoneViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="root" autoresizesArchivedViewToFullSize="NO" id="J5S-7M-byw" customClass="MicrophoneViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hpo-Pc-RzU"/>
                         <viewControllerLayoutGuide type="bottom" id="u5E-2p-U9I"/>
@@ -52,10 +52,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="A6H-cm-OdN"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="recordButton" destination="pcZ-Y0-VNN" id="lBP-u8-f35"/>
                         <outlet property="spinnerView" destination="Jla-Fa-EBL" id="CzD-DH-NJy"/>
-                        <segue destination="Cyq-K9-g4Q" kind="push" id="eCD-jN-Shd"/>
+                        <segue destination="Cyq-K9-g4Q" kind="modal" id="PYA-T3-AeO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wU2-OL-zrO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -71,38 +72,42 @@
                         <viewControllerLayoutGuide type="bottom" id="UHW-hg-uET"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vrM-fe-RcP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="{{Song Name}}" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ue-RW-9Y2">
-                                <rect key="frame" x="0.0" y="65" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="2" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="{{Artist Name}}" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deP-F9-lOi">
-                                <rect key="frame" x="0.0" y="115" width="320" height="21"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.60345193614130432" green="0.60345193614130432" blue="0.60345193614130432" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="4r6-ds-flm">
-                                <rect key="frame" x="0.0" y="144" width="300" height="379"/>
+                                <rect key="frame" x="0.0" y="99" width="300" height="405"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Cyq-K9-g4Q" id="O5L-SM-OhW"/>
-                                    <outlet property="delegate" destination="Cyq-K9-g4Q" id="dg4-xm-YjE"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="xoZ-j0-Crp"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationItem key="navigationItem" id="xoZ-j0-Crp">
+                        <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="lSO-0r-m6o">
+                            <connections>
+                                <action selector="close:" destination="Cyq-K9-g4Q" id="Bvl-LY-YSH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="artistName" destination="deP-F9-lOi" id="Geo-qZ-fSd"/>
                         <outlet property="name" destination="7Ue-RW-9Y2" id="mev-Yh-rPH"/>

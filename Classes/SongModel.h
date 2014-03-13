@@ -14,6 +14,6 @@
 @property (assign, nonatomic) int id;
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* artistName;
-@property (assign, nonatomic) NSArray<PartModel>* parts;
+@property (strong, nonatomic) NSArray<PartModel>* parts;
 
 @end

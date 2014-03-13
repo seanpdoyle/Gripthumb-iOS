@@ -15,18 +15,16 @@
 
 @implementation SongViewController
 
-@synthesize song;
-@synthesize parts;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    table.delegate = self;
+    table.dataSource = self;
     [self loadSong:song];
 }
 
 - (void) loadSong:(SongModel*) songToLoad {
     song = songToLoad;
-    parts = [song parts];
     [name setText: [song name]];
     [artistName setText:[song artistName]];
 }
@@ -37,7 +35,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[song parts] count];
+    return song.parts.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -50,12 +48,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:CellIdentifier];
     }
+    NSArray* parts = song.parts;
     
-    PartModel* part = [[song parts] objectAtIndex:indexPath.row];
-    VideoModel* video = [part video];
+    PartModel* part = parts[indexPath.row];
+    VideoModel* video = part.video;
     
-    cell.textLabel.text =  [part name];
-    cell.detailTextLabel.text = [video name];
+    cell.textLabel.text =  part.name;
+    cell.detailTextLabel.text = part.video.name;
     
     [cell.imageView setImageWithURL:[video logoURL]
                    placeholderImage:[UIImage imageNamed:@"Default-568"]];
