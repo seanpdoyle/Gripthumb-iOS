@@ -10,6 +10,6 @@
 
 int main(int argc, char *argv[]) {
     
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
+    int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
     return retVal;
 }

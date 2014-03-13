@@ -50,6 +50,8 @@ extern const char * GetPCMFromFile(char * filename);
 {
 	[audioRecorder stop];
     recording = NO;
+    
+	NSLog(@"Stopped recording.");
 }
 
 -(NSString*) fingerprint
