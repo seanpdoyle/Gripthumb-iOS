@@ -21,9 +21,9 @@
     return self;
 }
 
-- (NSArray*) gripthumb:(NSString*)fingerprintCode {
+- (SongModel*) gripthumb:(NSString*)fingerprintCode {
     if ([fingerprintCode length] == 0) {
-        return @[];
+        return nil;
     }
     NSError* error;
     NSURLResponse* response;
@@ -34,22 +34,22 @@
     id json = [NSJSONSerialization JSONObjectWithData:responseData
                                               options:NSJSONReadingAllowFragments
                                                 error:nil];
-    NSArray* parts;
+    SongModel* song;
     if (error != nil) {
         NSLog(@"Error with request to server: %@", error.localizedDescription);
-        parts = @[];
     } else if ([json hasKey:@"error"]) {
         NSLog(@"Error from server: %@", [json objectForKey:@"error"]);
-        NSDictionary* song = [json objectForKey:@"song"];
-        if (song != nil) {
+        NSDictionary* withSong = [json objectForKey:@"song"];
+        if (withSong != nil) {
             NSLog(@"Did find song: %@", song);
         }
-        parts = @[];
     } else {
+        song = [[SongModel alloc] initWithDictionary:[json objectForKey:@"song"]
+                                                                  error:nil];
         NSLog(@"JSON: %@", json);
-        parts = @[];
     }
-    return parts;}
+    return song;
+}
 
 - (NSURLRequest*) requestFor:(NSString*) fingerprintCode {
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:apiEndpoint];

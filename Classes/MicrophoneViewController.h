@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Fingerprinter.h"
 #import "Gripthumber.h"
+#import "SongModel.h"
 
 @interface MicrophoneViewController : UIViewController {
     IBOutlet UIActivityIndicatorView* spinnerView;
@@ -27,7 +28,7 @@
 - (void) scheduleFingerprint;
 - (void) startRecording;
 - (void) stopRecording;
-- (void) showResults:(NSArray*) results;
+- (void) showResults:(SongModel*) song;
 
 @end
 

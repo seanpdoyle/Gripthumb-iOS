@@ -48,7 +48,7 @@
     [spinnerView stopAnimating];
 }
 
-- (void) showResults:(NSArray*) results {
+- (void) showResults:(SongModel*) song {
     
 }
 
@@ -68,11 +68,11 @@
     } else {
         NSString* fingerprint = [fingerprinter fingerprint];
         NSLog(@"Fingerprinted: %@", fingerprint);
-        NSArray* results = [gripthumber gripthumb:fingerprint];
+        SongModel* song = [gripthumber gripthumb:fingerprint];
         
-        if([results count] > 0) {
+        if(song != nil) {
             [self performSelectorOnMainThread:@selector(showResults)
-                                   withObject:results
+                                   withObject:song
                                 waitUntilDone:YES];
         } else {
             [self scheduleFingerprint];

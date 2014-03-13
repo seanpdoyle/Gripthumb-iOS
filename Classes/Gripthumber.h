@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SongModel.h"
 
 @interface Gripthumber : NSObject
 
-- (NSArray*) gripthumb:(NSString*)song;
+- (SongModel*) gripthumb:(NSString*)fingerprintCode;
 
 @property NSURL* apiEndpoint;
 
