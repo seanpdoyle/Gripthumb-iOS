@@ -6,16 +6,8 @@
 //
 
 #import "ViewController.h"
-extern const char * GetPCMFromFile(char * filename);
 
 @implementation ViewController
-
-- (IBAction) pickSong:(id)sender {
-	NSLog(@"Pick song");
-	MPMediaPickerController* mediaPicker = [[[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeMusic] autorelease];
-	mediaPicker.delegate = self;
-	[self presentModalViewController:mediaPicker animated:YES];
-}
 
 - (IBAction) startCount:(id)sender
 {
@@ -39,8 +31,8 @@ extern const char * GetPCMFromFile(char * filename);
 }
 
 - (IBAction) startMicrophone:(id)sender {
-	if(recording) {
-        [self stopRecording: nil];
+	if([fingerprinter isRecording]) {
+        [self stopRecording];
     } else {
         [self startRecording];
     }
@@ -48,70 +40,35 @@ extern const char * GetPCMFromFile(char * filename);
 
 - (void) startRecording {
     [partsArray removeAllObjects];
-    [statusLine setText:@""];
-    recording = YES;
-    [recordButton setTitle:@"Recording..." forState:UIControlStateNormal];
-    [recorder startRecording];
+    [statusLine setText:@""];    [recordButton setTitle:@"Recording..." forState:UIControlStateNormal];
+    [fingerprinter record];
     [recordButton setEnabled:NO];
     [statusLine setNeedsDisplay];
     [self.view setNeedsDisplay];
     
     [NSTimer scheduledTimerWithTimeInterval: RECORD_FOR
                                      target: self
-                                   selector: @selector(stopRecording:)
+                                   selector: @selector(stopRecording)
                                    userInfo: nil
                                     repeats: NO];
 }
 
-- (void) stopRecording:(NSTimer *) timer {
-    recording = NO;
-    [recorder stopRecording];
+- (void) stopRecording {
+    [fingerprinter stop];
+    NSString* fpCode = [fingerprinter fingerprint];
     [recordButton setTitle:@"Record" forState:UIControlStateNormal];
     [recordButton setEnabled:YES];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath =[documentsDirectory stringByAppendingPathComponent:@"output.caf"];
     [statusLine setText:@"analysing..."];
     [statusLine setNeedsDisplay];
     [self.view setNeedsDisplay];
-    const char * fpCode = GetPCMFromFile((char*) [filePath cStringUsingEncoding:NSASCIIStringEncoding]);
-    [self getSong:fpCode];
+    [self getSongWithCode:fpCode];
 }
 
-- (void) mediaPicker:(MPMediaPickerController *)mediaPicker
-  didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
-	[self dismissModalViewControllerAnimated:YES];
-	for (MPMediaItem* item in mediaItemCollection.items) {
-		NSString* title = [item valueForProperty:MPMediaItemPropertyTitle];
-		NSURL* assetURL = [item valueForProperty:MPMediaItemPropertyAssetURL];
-		NSLog(@"title: %@, url: %@", title, assetURL);
-		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *documentsDirectory = [paths objectAtIndex:0];
-
-		NSURL* destinationURL = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:@"temp_data"]];
-		[[NSFileManager defaultManager] removeItemAtURL:destinationURL error:nil];
-		TSLibraryImport* import = [[TSLibraryImport alloc] init];
-		[import importAsset:assetURL toURL:destinationURL completionBlock:^(TSLibraryImport* import) {
-			//check the status and error properties of
-			//TSLibraryImport
-			NSString *outPath = [documentsDirectory stringByAppendingPathComponent:@"temp_data"];
-			NSLog(@"done now. %@", outPath);
-			[statusLine setText:@"analysing..."];
-			const char * fpCode = GetPCMFromFile((char*) [outPath  cStringUsingEncoding:NSASCIIStringEncoding]);
-			[statusLine setNeedsDisplay];
-			[self.view setNeedsDisplay];
-			[self getSong:fpCode];
-		}];
-		
-	}
-}
-
-- (void) getSong: (const char*) fpCode {
-	NSLog(@"Done %s", fpCode);
+- (void) getSongWithCode: (NSString*) songCode {
+	NSLog(@"Done %@", songCode);
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/songs/identify", API_HOST]];
-    NSString *song_code = [NSString stringWithUTF8String: fpCode];
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request setPostValue:song_code forKey:@"code"];
+    [request setPostValue:songCode forKey:@"code"];
 	[request setAllowCompressedResponse:NO];
 	[request startSynchronous];
     
@@ -119,11 +76,12 @@ extern const char * GetPCMFromFile(char * filename);
     
 	NSError *error = [request error];
 	if (!error) {
-		NSString *response = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];		
-		NSDictionary *dictionary = [response JSONValue];
-		NSLog(@"%@", dictionary);
-        NSString *error = [dictionary objectForKey:@"error"];
-		NSDictionary *song = [dictionary objectForKey:@"song"];
+		NSString *response = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+		NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
+        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+		NSLog(@"%@", json);
+        NSString *error = [json objectForKey:@"error"];
+		NSDictionary *song = [json objectForKey:@"song"];
         
         if(error == NULL) {
             NSArray *parts = [song objectForKey:@"parts"];
@@ -152,10 +110,6 @@ extern const char * GetPCMFromFile(char * filename);
     [partsTable reloadData];
 	[statusLine setNeedsDisplay];
 	[self.view setNeedsDisplay];
-}
-
-- (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
-	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -189,56 +143,11 @@ extern const char * GetPCMFromFile(char * filename);
     return cell;
 }
 
-//// The designated initializer. Override to perform setup that is required before the view is loaded.
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom Initialization
-//    }
-//    return self;
-//}
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     partsArray = [[NSMutableArray alloc] init];
-	recorder = [[MicrophoneInput alloc] init];
-	recording = NO;
-}
-             
-- (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-                
-    // Release any cached data, images, etc that aren't in use.
-}
-
-- (void)dealloc {
-    [partsArray release];
-    [super dealloc];
+	fingerprinter = [[Fingerprinter alloc] init];
 }
 
 @end

@@ -13,7 +13,7 @@ extern "C" {
 
 extern void NSLog(CFStringRef format, ...); 
 
-const char * GetPCMFromFile(char * filename) {
+const char * GetPCMFromFile(const char * filename) {
 	CFURLRef audioFileURL = CFURLCreateFromFileSystemRepresentation(NULL,(const UInt8*)filename, strlen(filename), false);
 	ExtAudioFileRef outExtAudioFile;
 	int err = ExtAudioFileOpenURL(audioFileURL, &outExtAudioFile);

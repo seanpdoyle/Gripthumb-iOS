@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <ASIHTTPRequest/ASIFormDataRequest.h>
@@ -14,28 +13,26 @@
 #import <TSLibraryImport/TSLibraryImport.h>
 #import <ObjectiveSugar/ObjectiveSugar.h>
 #import <Inflections/NSString+Inflections.h>
-#import "MicrophoneInput.h"
+#import "Fingerprinter.h"
 
 #define API_HOST @"gripthumb.com"
 #define RECORD_FOR 15
 
-@interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,MPMediaPickerControllerDelegate> {
-	BOOL recording;
+@interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource> {
 	IBOutlet UIButton* recordButton;
 	IBOutlet UILabel* statusLine;
 	IBOutlet UITableView* partsTable;
     IBOutlet UIProgressView *progressView;
     
     NSMutableArray* partsArray;
-	MicrophoneInput* recorder;
+	Fingerprinter* fingerprinter;
     
     NSTimer *progressTimer;
     NSInteger progress;
 }
 
-- (IBAction)pickSong:(id)sender;
 - (IBAction)startMicrophone:(id)sender;
-- (void) getSong: (const char*) fpCode;
+- (void) getSongWithCode: (NSString*) code;
 
 @end
 
