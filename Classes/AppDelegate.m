@@ -16,11 +16,14 @@
                                                          bundle: nil];
     UIViewController* rootController = [storyboard instantiateViewControllerWithIdentifier: @"root"];
     
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:rootController];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    
+    // Configure Window
+    [self.window setRootViewController:navigationController];
+    [self.window setBackgroundColor:[UIColor whiteColor]];
     [self.window makeKeyAndVisible];
-    [self.window setRootViewController:rootController];
     
     return YES;
 }

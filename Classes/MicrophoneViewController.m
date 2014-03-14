@@ -18,6 +18,17 @@
 #define MAX_RECORDED_SECONDS 20
 #define FINGERPRINTING_INTERVAL 2
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,9 +81,8 @@
     
     [songViewController loadSong:song];
     
-    [self presentViewController:songViewController
-                       animated:YES
-                     completion:nil];
+    [self.navigationController pushViewController:songViewController
+                                         animated:YES];
 }
 
 - (void)scheduleFingerprint {
@@ -87,7 +97,7 @@
     if(secondsPassed > MAX_RECORDED_SECONDS) {
         [self performSelectorOnMainThread:@selector(stopRecording)
                                withObject:nil
-                            waitUntilDone:YES];
+                            waitUntilDone:NO];
     } else {
         NSString* fingerprint = [fingerprinter fingerprint];
         NSLog(@"Fingerprinted: %@", fingerprint);

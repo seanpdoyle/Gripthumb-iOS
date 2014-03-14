@@ -30,7 +30,7 @@
 }
 
 - (IBAction)close:(id)sender {
-    [self close:sender];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
