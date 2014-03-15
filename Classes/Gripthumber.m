@@ -31,24 +31,19 @@
                                                  returningResponse:&response
                                                              error:&error];
     
-    id json = [NSJSONSerialization JSONObjectWithData:responseData
-                                              options:NSJSONReadingAllowFragments
-                                                error:nil];
-    SongModel* song;
     if (error != nil) {
         NSLog(@"Error with request to server: %@", error.localizedDescription);
-    } else if ([json hasKey:@"error"]) {
-        NSLog(@"Error from server: %@", [json objectForKey:@"error"]);
-        NSDictionary* withSong = [json objectForKey:@"song"];
-        if (withSong != nil) {
-            NSLog(@"Did find song: %@", song);
-        }
+        return nil;
     } else {
-        song = [[SongModel alloc] initWithDictionary:[json objectForKey:@"song"]
-                                                                  error:nil];
-        NSLog(@"JSON: %@", json);
+        id json = [NSJSONSerialization JSONObjectWithData:responseData
+                                                  options:NSJSONReadingAllowFragments
+                                                    error:nil];
+        if ([json hasKey:@"error"]) {
+            NSLog(@"Error from server: %@", [json objectForKey:@"error"]);
+        }
+        return [[SongModel alloc] initWithDictionary:[json objectForKey:@"song"]
+                                               error:nil];
     }
-    return song;
 }
 
 - (NSURLRequest*) requestFor:(NSString*) fingerprintCode {

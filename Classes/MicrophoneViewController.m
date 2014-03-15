@@ -15,7 +15,7 @@
 
 @implementation MicrophoneViewController
 
-#define MAX_RECORDED_SECONDS 20
+#define MAX_RECORDED_SECONDS 30
 #define FINGERPRINTING_INTERVAL 2
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -71,6 +71,11 @@
 }
 
 - (void) showResults:(SongModel*) song {
+    if (song == nil || song.parts.count < 1) {
+        NSLog(@"Song without parts: %@", song);
+        return;
+    }
+    
     [self stopRecording];
     
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Storyboard"
@@ -110,6 +115,7 @@
             [self scheduleFingerprint];
         }
     }
+    secondsPassed = secondsPassed + FINGERPRINTING_INTERVAL;
 }
 
 @end
