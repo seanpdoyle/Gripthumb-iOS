@@ -11,9 +11,9 @@
 
 @interface SongModel : JSONModel
 
-@property (assign, nonatomic) int id;
-@property (strong, nonatomic) NSString* name;
-@property (strong, nonatomic) NSString* artistName;
-@property (strong, nonatomic) NSArray<PartModel>* parts;
+@property int id;
+@property NSString* name;
+@property NSString* artistName;
+@property NSArray<PartModel>* parts;
 
 @end

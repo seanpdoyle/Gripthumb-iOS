@@ -13,8 +13,8 @@
 
 @interface PartModel : JSONModel
 
-@property (assign, nonatomic) int id;
-@property (strong, nonatomic) NSString* name;
-@property (strong, nonatomic) VideoModel* video;
+@property int id;
+@property NSString* name;
+@property VideoModel* video;
 
 @end

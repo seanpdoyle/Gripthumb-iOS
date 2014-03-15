@@ -10,9 +10,9 @@
 
 @interface VideoModel : JSONModel
 
-@property (assign, nonatomic) int id;
-@property (strong, nonatomic) NSString* name;
-@property (strong, nonatomic) NSString* logo;
+@property int id;
+@property NSString* name;
+@property NSString* logo;
 
 - (NSURL*) logoURL;
 
